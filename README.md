@@ -1,4 +1,4 @@
-# TextUtils
+# TextUtils - Smart Text Management Application
 
 A modern full-stack web application for transforming and storing text with secure user authentication.
 
@@ -171,3 +171,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Express.js Documentation](https://expressjs.com/)
 - [MongoDB Documentation](https://docs.mongodb.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
+  
