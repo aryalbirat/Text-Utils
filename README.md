@@ -1,4 +1,4 @@
-# TextUtils
+# TextUtils - Smart Text Management Application
 
 A modern full-stack web application for transforming and storing text with secure user authentication.
 
