@@ -15,7 +15,10 @@ function TextCrudManager({
   const [texts, setTexts] = useState([]);
 
   useEffect(() => {
-    fetchTexts();
+    const token = localStorage.getItem('jwt_token');
+    if (token) {
+      fetchTexts();
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -25,8 +28,14 @@ function TextCrudManager({
       const data = await getTexts();
       setTexts(data);
       setError("");
-    } catch {
-      setError("Failed to load texts");
+    } catch (err) {
+      if (err.message.includes('Session expired') || err.message.includes('No authentication token')) {
+        // Clear invalid token and reload to show login form
+        localStorage.removeItem('jwt_token');
+        window.location.reload();
+      } else {
+        setError(err.message || "Failed to load texts");
+      }
     }
     setLoading(false);
   };
@@ -43,8 +52,13 @@ function TextCrudManager({
       }
       setText("");
       await fetchTexts();
-    } catch {
-      setError("Failed to save text");
+    } catch (err) {
+      if (err.message.includes('Session expired') || err.message.includes('No authentication token')) {
+        localStorage.removeItem('jwt_token');
+        window.location.reload();
+      } else {
+        setError(err.message || "Failed to save text");
+      }
     }
     setLoading(false);
   };
@@ -54,16 +68,30 @@ function TextCrudManager({
     try {
       await deleteText(id);
       await fetchTexts();
-    } catch {
-      setError("Failed to delete text");
+    } catch (err) {
+      if (err.message.includes('Session expired') || err.message.includes('No authentication token')) {
+        localStorage.removeItem('jwt_token');
+        window.location.reload();
+      } else {
+        setError(err.message || "Failed to delete text");
+      }
     }
     setLoading(false);
   };
 
+  // Don't render anything if not authenticated
+  if (!localStorage.getItem('jwt_token')) {
+    return null;
+  }
+
   return (
     <div className="max-w-xl mx-auto bg-white rounded-xl shadow-lg p-6 mt-6">
       <h2 className="text-2xl font-bold mb-4 text-blue-800 text-center">Saved Texts</h2>
-      {error && <div className="text-red-600 mb-2">{error}</div>}
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+          <span className="block sm:inline">{error}</span>
+        </div>
+      )}
       {loading ? (
         <div className="text-center text-blue-600">Loading...</div>
       ) : (
@@ -86,7 +114,7 @@ function TextCrudManager({
                   Edit
                 </button>
                 <button
-                  className="bg-gradient-to-r from-blue-700 to-blue-500 hover:from-blue-800 hover:to-blue-600 rounded-md text-white px-3 py-1 font-semibold shadow transition-all"
+                  className="bg-gradient-to-r from-red-700 to-red-500 hover:from-red-800 hover:to-red-600 rounded-md text-white px-3 py-1 font-semibold shadow transition-all"
                   onClick={() => handleDelete(item._id)}
                   disabled={loading}
                 >

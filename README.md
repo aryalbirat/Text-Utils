@@ -157,14 +157,13 @@ text-utils/
 4. Access your saved texts from the dashboard
 5. Edit or delete saved texts as needed
 
-
 ## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Author
 
-- **Birat Aryal** - [GitHub Profile](https://github.com/yourusername)
+- **Birat Aryal** - [GitHub Profile](https://github.com/aryalbirat)
 
 ## 🙏 Acknowledgements
 

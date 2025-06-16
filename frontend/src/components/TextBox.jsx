@@ -28,7 +28,7 @@ function TextBox() {
   };
 
   return (
-    <div className="min-h-screen  w-full bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 flex flex-col items-center pt-4 md:pt-9 px-2 pb-4">
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 flex flex-col items-center pt-4 md:pt-9 px-2 pb-4">
       <div className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400 bg-clip-text text-transparent mb-8 text-center drop-shadow-lg select-none">
         Transform & Save Your Text
       </div>
